@@ -11,17 +11,16 @@ mongoose.connect('mongodb://localhost/ninjago');
 mongoose.Promise = global.Promise;
 
 app.use(bodyParser.json());
+
 app.use('/api', routes);
+
 app.use(function(err, req, res, next) {
     console.info(err);
+    res.status(422).send({error: err.message});
 });
 
 app.get('/api', function(req, res) {
     console.log('Get request');
-
-    // res.write('xxx');
-    // res.end();
-
     res.send({name: 'zark'})
 });
 
